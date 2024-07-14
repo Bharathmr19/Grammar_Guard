@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>English Grammar Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #chatbox {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .user-message {
+            text-align: right;
+            color: #0000ff;
+        }
+        .bot-message {
+            text-align: left;
+            color: #008000;
+        }
+        #userMessage {
+            width: calc(100% - 110px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        async function sendMessage() {
+            const userMessage = document.getElementById('userMessage').value;
+            if (userMessage.trim() === '') return;
+            const chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += `<div class="message user-message">You: ${userMessage}</div>`;
+            document.getElementById('userMessage').value = '';
+            chatbox.scrollTop = chatbox.scrollHeight;
+            
+            const response = await fetch('/chatbot/api/chatbot/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userMessage })
+            });
+            const data = await response.json();
+            chatbox.innerHTML += `<div class="message bot-message">Bot: ${data.response}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>English Grammar Chatbot</h1>
+        <div id="chatbox"></div>
+        <input type="text" id="userMessage" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</body>
+</html>
