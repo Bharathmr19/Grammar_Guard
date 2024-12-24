@@ -4,6 +4,7 @@ This project is a simple Django-based bot that helps to correct grammar mistakes
 
 Features
 Grammar Correction: 
+
   *The bot accepts a sentence, checks it for grammatical errors, and provides suggestions for correction.
   
   *Django Web Interface: The app uses Django to render the front-end interface and provides an API endpoint for processing the input.
