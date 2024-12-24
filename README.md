@@ -1,4 +1,5 @@
 ##Grammar Correction Bot
+
 This project is a simple Django-based bot that helps to correct grammar mistakes in sentences. It uses the LanguageTool API to process and identify errors in the user's input and provides corrections or suggestions.
 
 Features
